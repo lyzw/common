@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+}
+
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'com.sapling'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+ext {
+    version_jedis = "2.9.0"
+    version_httpclient = '4.5.5'
+}
+repositories {
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'redis.clients', name: 'jedis', version: version_jedis
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: version_httpclient
+
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled true
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
