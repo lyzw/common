@@ -1,7 +1,7 @@
 package com.sapling.common.tools.system;
 
 
-import com.sapling.tools.common.StringUtil;
+import com.sapling.common.tools.common.StringUtil;
 
 /**
  * //TODO {Please input description here }

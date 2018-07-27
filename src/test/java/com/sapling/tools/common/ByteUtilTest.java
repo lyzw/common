@@ -1,5 +1,6 @@
 package com.sapling.tools.common;
 
+import com.sapling.common.tools.common.ByteUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

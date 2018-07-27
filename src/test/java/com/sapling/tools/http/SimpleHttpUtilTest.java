@@ -1,5 +1,6 @@
 package com.sapling.tools.http;
 
+import com.sapling.common.tools.http.SimpleHttpUtil;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Test;

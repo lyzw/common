@@ -1,5 +1,6 @@
 package com.sapling.tools.common;
 
+import com.sapling.common.tools.common.ChineseCharUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

@@ -1,5 +1,6 @@
 package com.sapling.tools.security;
 
+import com.sapling.common.tools.security.MD5Util;
 import org.junit.Assert;
 import org.junit.Test;
 

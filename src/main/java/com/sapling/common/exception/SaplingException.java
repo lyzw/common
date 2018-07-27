@@ -6,7 +6,7 @@ package com.sapling.common.exception;
  * @date 2018/6/12
  * @since v1.0
  */
-public class SaplingException extends Throwable {
+public class SaplingException extends RuntimeException {
 
     private String errorCode;
 

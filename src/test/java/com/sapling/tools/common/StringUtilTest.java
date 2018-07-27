@@ -1,5 +1,6 @@
 package com.sapling.tools.common;
 
+import com.sapling.common.tools.common.StringUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -31,8 +32,8 @@ public class StringUtilTest {
 
     @Test
     public void underLineToCamel() {
-        assertEquals("aaAaAa",StringUtil.underLineToCamel("aa_aa_aa"));
-        assertEquals("aa1aAa",StringUtil.underLineToCamel("aa_1a_aa"));
+        assertEquals("aaAaAa",StringUtil.toCamel("aa_aa_aa"));
+        assertEquals("aa1aAa",StringUtil.toCamel("aa_1a_aa"));
 
     }
 }
