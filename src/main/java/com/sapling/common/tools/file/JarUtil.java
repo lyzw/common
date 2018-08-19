@@ -44,7 +44,7 @@ public class JarUtil {
      * @param packNames     显示的包名（只显示此包下的文件）
      * @return
      */
-    public static Set<String> recursionListFile(String jarFileName, String... packNames) {
+    public static Set<String> recursionListFile(String jarFileName, String[] packNames) {
         return recursionListFile(jarFileName,false, packNames);
     }
 
@@ -55,7 +55,7 @@ public class JarUtil {
      * @param packNames     显示的包名（只显示此包下的文件）
      * @return
      */
-    public static Set<String> recursionListFile(String jarFileName, boolean lookinJar, String... packNames) {
+    public static Set<String> recursionListFile(String jarFileName, boolean lookinJar, String[] packNames) {
         if (!StringUtil.isEmpty(jarFileName)) {
             try {
                 JarFile jarFile = new JarFile(jarFileName);
@@ -80,7 +80,7 @@ public class JarUtil {
         return recursionListFile(jarFile, false, null);
     }
 
-    public static Set<String> recursionListFile(JarFile jarFile, String... packNames) {
+    public static Set<String> recursionListFile(JarFile jarFile, String[] packNames) {
         if (jarFile == null) {
             return null;
         }
@@ -88,7 +88,7 @@ public class JarUtil {
     }
 
 
-    public static Set<String> recursionListFile(JarFile jarFile,boolean lookinJar, String... packNames) {
+    public static Set<String> recursionListFile(JarFile jarFile,boolean lookinJar, String[] packNames) {
         Set retList = new HashSet();
         List<String> packFileNames = FileUtil.packageToUnixPath(packNames);
         if (jarFile == null) {

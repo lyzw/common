@@ -128,7 +128,7 @@ public class FileSearchUtil {
      * @param fileName
      * @return
      */
-    public static Set<Class> findClassesInPath(String fileName, String... packageNames) {
+    public static Set<Class> findClassesInPath(String fileName, String[] packageNames) {
         File file = new File(fileName);
         Set<Class> classSet = new HashSet<>();
         Set<String> classfiles = findFilesInPath(fileName, true, new String[]{".class"});

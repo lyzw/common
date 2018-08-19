@@ -28,6 +28,11 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+// https://mvnrepository.com/artifact/javax.servlet/servlet-api
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
     compile group: 'redis.clients', name: 'jedis', version: version_jedis
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: version_httpclient
 
