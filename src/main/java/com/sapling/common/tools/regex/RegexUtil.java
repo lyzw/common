@@ -1,6 +1,5 @@
 package com.sapling.common.tools.regex;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -11,11 +10,15 @@ import java.util.regex.Pattern;
  */
 public class RegexUtil {
 
-    public static void main(String[] args) {
-        String regex = "(\\d+)\\s(\\d+)\\s(\\d+)\\s(\\d+)\\s(\\d+)\\s(\\?|\\d+)\\s(\\d+)";
+    /**
+     * 校验当前给定的值是否符合特定的正则表达式
+     *
+     * @param regex 正则表达式
+     * @param value 给定的值
+     * @return 是否符合
+     */
+    public static boolean isMatch(String regex, String value) {
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher("* 0 1 1 1 ? 2018");
-        System.out.println(matcher.matches());
-
+        return pattern.matcher(value).matches();
     }
 }

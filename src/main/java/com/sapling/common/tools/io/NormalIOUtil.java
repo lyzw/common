@@ -15,7 +15,9 @@ import java.io.OutputStream;
  */
 public class NormalIOUtil {
 
-    static byte[] buffer = new byte[1024];
+    /**
+     * 默认字符集
+     **/
     public static final String DEFAULT_CHARSET = "UTF-8";
 
 
@@ -46,15 +48,25 @@ public class NormalIOUtil {
         return toString(inputStream, DEFAULT_CHARSET);
     }
 
+    /**
+     * @param inputStream 输入流
+     * @param charset     字符集
+     * @return 输入流中的字符串
+     * @throws IOException IO异常
+     */
     public static String toString(InputStream inputStream, String charset) throws IOException {
         if (inputStream == null || inputStream.available() == 0) {
             return "";
         }
-        StringBuilder sb = new StringBuilder();
-        while (inputStream.read(buffer) != -1) {
-            sb.append(new String(buffer, charset));
+        byte[] data = new byte[inputStream.available()];
+        byte[] buffer = new byte[1024];
+        int index = 0;
+        int length = 0;
+        while ((length = inputStream.read(buffer)) != -1) {
+            System.arraycopy(buffer, 0, data, index, length);
+            index = index + length;
         }
-        return sb.toString();
+        return new String(data, charset);
     }
 
     /**
@@ -66,6 +78,7 @@ public class NormalIOUtil {
      */
     public static OutputStream input2Output(InputStream inputStream) throws IOException {
         OutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
         while (inputStream.read(buffer) != -1) {
             outputStream.write(buffer);
         }

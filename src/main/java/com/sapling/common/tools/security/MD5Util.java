@@ -20,6 +20,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Util {
 
+    static final String DIGEST_MD5 = "MD5";
+    static final String DEFAULT_CHARSET = "utf-8";
+
     /**
      * MD5加密字符串
      *
@@ -30,7 +33,7 @@ public class MD5Util {
      * @throws NoSuchAlgorithmException     不支持的加密类型
      */
     public static String md5(String content, String charset) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest md = MessageDigest.getInstance(DIGEST_MD5);
         return ByteUtil.bytesToHex(md.digest(content.getBytes(charset)));
     }
 
@@ -42,18 +45,10 @@ public class MD5Util {
      * @throws UnsupportedEncodingException 不支持的字符集
      * @throws NoSuchAlgorithmException     不支持的加密类型
      */
-    public static String md5(String content)  {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-            return ByteUtil.bytesToHex(md.digest(content.getBytes("utf-8")));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public static String md5(String content) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(DIGEST_MD5);
+        return ByteUtil.bytesToHex(md.digest(content.getBytes(DEFAULT_CHARSET)));
+
     }
 
     /**
@@ -61,11 +56,11 @@ public class MD5Util {
      *
      * @param data 待加密数据
      * @return 加密后的byte数组
-     * @throws NoSuchAlgorithmException     {@link NoSuchAlgorithmException}
-     * @throws UnsupportedEncodingException {@link UnsupportedEncodingException}
+     * @throws NoSuchAlgorithmException     没有对应的算法{@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException 不支持的字符集{@link UnsupportedEncodingException}
      */
     public static byte[] digest(String data) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        return digest(data, "UTF-8");
+        return digest(data, DEFAULT_CHARSET);
     }
 
     /**
@@ -74,22 +69,29 @@ public class MD5Util {
      * @param data    待加密数据
      * @param charset 字符集
      * @return 加密后的byte数组
-     * @throws NoSuchAlgorithmException     {@link NoSuchAlgorithmException}
-     * @throws UnsupportedEncodingException {@link UnsupportedEncodingException}
+     * @throws NoSuchAlgorithmException     没有对应的算法{@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException 不支持的字符集{@link UnsupportedEncodingException}
      */
     public static byte[] digest(String data, String charset)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         return digest(data.getBytes(charset));
     }
 
-    public static byte[] digest(byte[] data) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] bytes = md.digest(data);
-        return bytes;
+
+    /**
+     * 获取md5加密后的byte数组
+     *
+     * @param data 待加密字节数组
+     * @return 加密后的byte数组
+     * @throws NoSuchAlgorithmException 没有对应的算法{@link NoSuchAlgorithmException}
+     */
+    public static byte[] digest(byte[] data) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance(DIGEST_MD5);
+        return md.digest(data);
     }
 
 
-      /**
+    /**
      * 对文件做摘要
      *
      * @param file 文件
@@ -99,7 +101,7 @@ public class MD5Util {
      */
     public static String md5(File file) throws IOException, NoSuchAlgorithmException {
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance(DIGEST_MD5);
             FileInputStream fileInputStream = new FileInputStream(file);
             byte[] bytes = NormalIOUtil.toBytes(fileInputStream);
             return ByteUtil.bytesToHex(md.digest(bytes));
@@ -111,4 +113,5 @@ public class MD5Util {
             throw e;
         }
     }
+
 }
