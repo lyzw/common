@@ -44,28 +44,23 @@ public class FileSearchUtil {
             }
             return Collections.emptySet();
         }
-        File[] files = file.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                if (pathname.isDirectory()) {
-                    return true;
-                }
-                boolean flag = false;
-                for (String type : types) {
-                    if (pathname.getName().endsWith(type)) {
-                        flag = true;
-                        break;
-                    }
-                }
-                return isRetain && flag;
+        File[] files = file.listFiles(pathname -> {
+            if (pathname.isDirectory()) {
+                return true;
             }
+            boolean flag = false;
+            for (String type : types) {
+                if (pathname.getName().endsWith(type)) {
+                    flag = true;
+                    break;
+                }
+            }
+            return isRetain && flag;
         });
         for (File childFile : files) {
             if (childFile.isDirectory()) {
                 Set subSet = findFilesInPath(childFile.getAbsolutePath(), isRetain, types);
-                if (subSet != null) {
-                    retSet.addAll(subSet);
-                }
+                retSet.addAll(subSet);
             } else {
                 retSet.add(childFile.getAbsolutePath());
             }
@@ -85,11 +80,7 @@ public class FileSearchUtil {
         if (file.isDirectory()) {
             return false;
         }
-        if (file.getName().endsWith(type)) {
-            return true;
-        } else {
-            return false;
-        }
+        return file.getName().endsWith(type);
     }
 
     /**
@@ -131,8 +122,8 @@ public class FileSearchUtil {
     public static Set<Class> findClassesInPath(String fileName, String[] packageNames) {
         File file = new File(fileName);
         Set<Class> classSet = new HashSet<>();
-        Set<String> classfiles = findFilesInPath(fileName, true, new String[]{".class"});
-        for (String classfile : classfiles) {
+        Set<String> classFiles = findFilesInPath(fileName, true, new String[]{".class"});
+        for (String classfile : classFiles) {
             String parentPath = file.getAbsolutePath();
             if (!parentPath.endsWith(File.separator)) {
                 parentPath = parentPath + File.separator;
