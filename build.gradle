@@ -8,6 +8,9 @@ buildscript {
 plugins {
     id 'java'
     id 'jacoco'
+    id 'maven'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
 }
 
 group 'com.sapling'
@@ -15,11 +18,15 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
 ext {
     version_jedis = "2.9.0"
     version_httpclient = '4.5.5'
 }
 repositories {
+    mavenLocal()
     mavenCentral()
     maven { url "https://plugins.gradle.org/m2/" }
 
@@ -45,4 +52,35 @@ jacocoTestReport {
         csv.enabled true
         html.destination file("${buildDir}/jacocoHtml")
     }
+}
+install {
+    repositories.mavenInstaller {
+        pom.version =  project.version
+        pom.artifactId = 'common'
+        pom.groupId = project.group
+    }
+}
+
+// 指定本地maven仓库位置
+def lmr = 'file://' + new File("D:\\software\\dev\\gradle_home\\caches\\modules-2\\files-2.1").absolutePath
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: lmr)
+//            mavenLocal()
+        }
+    }
+}
+
+
+publishing{
+    publications{
+        plugin(MavenPublication){
+            from components.java
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

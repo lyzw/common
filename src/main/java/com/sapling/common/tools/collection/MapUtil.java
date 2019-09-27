@@ -16,12 +16,16 @@ public class MapUtil {
     /**
      * 将对象的属性与值转换为map
      *
+     *
+     *
      * @param object 对象数据
      * @return 对象数据的map
      */
     public static Map objectToMap(Object object) {
         return ReflectUtil.getFieldValueMap(object);
     }
+
+
 
     /**
      * 将对象的属性与值转换为map

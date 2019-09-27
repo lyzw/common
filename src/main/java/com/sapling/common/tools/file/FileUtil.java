@@ -1,15 +1,12 @@
 package com.sapling.common.tools.file;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.sapling.common.tools.common.StringUtil;
+import com.sapling.common.tools.io.NormalIOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -282,6 +279,18 @@ public class FileUtil {
             throw e;
         }
 
+    }
+
+    /**
+     * get the content of file
+     * @param file
+     * @param charset
+     * @return
+     * @throws IOException
+     */
+    public static String getFileContent(File file,String charset) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(file);
+        return NormalIOUtil.toString(fileInputStream,charset);
     }
 
 }

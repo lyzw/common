@@ -22,10 +22,12 @@ public class StringUtil {
     public static boolean isEmpty(String value) {
         if (isNull(value)) {
             return true;
-        } else if ("".equals(value.trim())) {
-            return true;
         }
-        return false;
+        return "".equals(value.trim());
+    }
+
+    public static boolean isNotEmpty(String value){
+        return !isEmpty(value);
     }
 
 
@@ -36,7 +38,11 @@ public class StringUtil {
      * @return 如果字符串为空则
      */
     public static boolean isNull(String value) {
-        return value == null ? true : false;
+        return value == null ;
+    }
+
+    public static boolean isNotNull(String value){
+        return !isNull(value);
     }
 
     /**
@@ -57,6 +63,17 @@ public class StringUtil {
         }
         return false;
     }
+
+    public static boolean isNotEmpty(String value, boolean trimOpr){
+        return !isEmpty(value,trimOpr);
+    }
+
+    /**
+     * 将字符串首字母转为大写
+     *
+     * @param value
+     * @return
+     */
     public static String upperFirstLetter(String value) {
         if (isEmpty(value)) {
             return value;
@@ -66,6 +83,11 @@ public class StringUtil {
         return sb.toString();
     }
 
+    /**
+     * 下划线转驼峰
+     * @param value
+     * @return
+     */
     public static String toCamel(String value) {
         if (isEmpty(value)) {
             return value;
@@ -80,6 +102,12 @@ public class StringUtil {
         return sb.toString();
     }
 
+    /**
+     * 驼峰转下划线
+     *
+     * @param value
+     * @return
+     */
     public static String toUnderLine(String value){
         if (isEmpty(value)) {
             return value;

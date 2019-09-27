@@ -18,7 +18,5 @@ public class ArrayUtil {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(join(Arrays.asList(new String[]{"a","b"}),"1"));
-    }
+
 }
