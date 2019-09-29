@@ -6,14 +6,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * 普通IO工具类
+ * 输入流工具
  *
  * @author zhouwei
  * @version v1.0
  * @date 2018/6/20
  * @since v1.0
  */
-public class NormalIOUtil {
+public class InputStreamUtil {
+
 
     /**
      * 默认字符集

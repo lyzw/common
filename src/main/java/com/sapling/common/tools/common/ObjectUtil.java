@@ -45,7 +45,8 @@ public class ObjectUtil {
     }
 
     /**
-     * 字节数组转换为指定的类：
+     * 字节数组转换为指定的类：注意，数据必须是ObjectOutputStream生成的byte数组，
+     * ObjectOutputStream输出的byte数组会存在指定的头
      * <ul>
      * <li>字符数组为空或者长度为0，则返回Optional.empty{@link Optional#empty()} </li>
      * <li>字节数组不能转换为类实例，则抛出ClassNotFoundException{@link ClassNotFoundException}</li>

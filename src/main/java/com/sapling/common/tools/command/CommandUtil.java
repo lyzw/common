@@ -1,6 +1,6 @@
 package com.sapling.common.tools.command;
 
-import com.sapling.common.tools.io.NormalIOUtil;
+import com.sapling.common.tools.io.InputStreamUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,8 +42,8 @@ public class CommandUtil {
         InputStream errInputStream = process.getErrorStream();
         process.waitFor();
         result.setExitCode(process.exitValue());
-        result.setResult(new String(NormalIOUtil.toBytes(stdInputStream), charset));
-        result.setError(new String(NormalIOUtil.toBytes(errInputStream), charset));
+        result.setResult(new String(InputStreamUtil.toBytes(stdInputStream), charset));
+        result.setError(new String(InputStreamUtil.toBytes(errInputStream), charset));
         try {
             stdInputStream.close();
             errInputStream.close();

@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * util for date
+ *
  * @author zhouwei
  * @version v1.0
  * @date 2018/6/7
@@ -11,10 +13,20 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    /**
+     * get date of yesterday
+     *
+     * @return date of yesterday
+     */
     public static Date yesterday() {
         return addDay(new Date(), -1);
     }
 
+    /**
+     * get date of tomorrow
+     *
+     * @return date of yesterday
+     */
     public static Date tomorrow() {
         return addDay(new Date(), 1);
     }
@@ -142,12 +154,13 @@ public class DateUtil {
 
     /**
      * 将influx时序数据库的时间戳转换为日期
+     *
      * @param timestamp
      * @return
      */
-    public static Date fromInfluxdbTimestamp(Long timestamp){
+    public static Date fromInfluxdbTimestamp(Long timestamp) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timestamp/1000000);
+        calendar.setTimeInMillis(timestamp / 1000000);
         return calendar.getTime();
     }
 

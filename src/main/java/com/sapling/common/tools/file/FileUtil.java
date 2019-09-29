@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sapling.common.tools.common.StringUtil;
-import com.sapling.common.tools.io.NormalIOUtil;
+import com.sapling.common.tools.io.InputStreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -290,7 +290,7 @@ public class FileUtil {
      */
     public static String getFileContent(File file,String charset) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(file);
-        return NormalIOUtil.toString(fileInputStream,charset);
+        return InputStreamUtil.toString(fileInputStream,charset);
     }
 
 }

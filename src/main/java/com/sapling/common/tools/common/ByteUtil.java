@@ -12,13 +12,13 @@ public class ByteUtil {
     public static byte[] shortToBytes(short value) {
         byte[] bytes = new byte[2];
         bytes[0] = (byte) ((value >>> 8) & 0xff);
-        bytes[1] = (byte) ((value >>> 0) & 0xff);
+        bytes[1] = (byte) ((value) & 0xff);
         return bytes;
     }
 
     public static Short bytesToShort(byte[] bytes) {
         if (bytes.length == 2) {
-            int a = (bytes[1] & 0xff) << 0;
+            int a = (bytes[1] & 0xff);
             int b = (bytes[0] & 0xff) << 8;
             return new Integer((a | b)).shortValue();
         }
@@ -30,13 +30,13 @@ public class ByteUtil {
         result[0] = (byte) ((value >>> 24) & 0xff);
         result[1] = (byte) ((value >>> 16) & 0xff);
         result[2] = (byte) ((value >>> 8) & 0xff);
-        result[3] = (byte) ((value >>> 0) & 0xff);
+        result[3] = (byte) ((value) & 0xff);
         return result;
     }
 
     public static Integer bytesToInt(byte[] arrays) {
         if (arrays.length == 4) {
-            int a = (arrays[3] & 0xff) << 0;
+            int a = (arrays[3] & 0xff);
             int b = (arrays[2] & 0xff) << 8;
             int c = (arrays[1] & 0xff) << 16;
             int d = (arrays[0] & 0xff) << 24;
@@ -54,13 +54,13 @@ public class ByteUtil {
         bytes[4] = (byte) ((value >>> 24) & 0xff);
         bytes[5] = (byte) ((value >>> 16) & 0xff);
         bytes[6] = (byte) ((value >>> 8) & 0xff);
-        bytes[7] = (byte) ((value >>> 0) & 0xff);
+        bytes[7] = (byte) ((value) & 0xff);
         return bytes;
     }
 
     public static Long bytesToLong(byte[] arrays) {
         if (arrays.length == 8) {
-            return ((long) (arrays[7] & 0xff) << 0
+            return ((long) (arrays[7] & 0xff)
                     | (long) (arrays[6] & 0xff) << 8
                     | (long) (arrays[5] & 0xff) << 16
                     | (long) (arrays[4] & 0xff) << 24

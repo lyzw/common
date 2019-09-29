@@ -1,6 +1,6 @@
 package com.sapling.common.tools.http;
 
-import com.sapling.common.tools.io.NormalIOUtil;
+import com.sapling.common.tools.io.InputStreamUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +34,7 @@ public class ReReadContentHttpServletRequest extends HttpServletRequestWrapper {
     public ReReadContentHttpServletRequest(HttpServletRequest request) {
         super(request);
         try {
-            bodyConent = NormalIOUtil.toBytes(request.getInputStream());
+            bodyConent = InputStreamUtil.toBytes(request.getInputStream());
         } catch (IOException e) {
             bodyConent = null;
         }
