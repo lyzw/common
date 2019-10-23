@@ -125,7 +125,7 @@ public class FileUtil {
                 tmpFile.delete();
             }
             if (!tmpFile.getParentFile().exists()) {
-                tmpFile.mkdirs();
+                tmpFile.getParentFile().mkdirs();
             }
             if (!tmpFile.exists()) {
                 tmpFile.createNewFile();
@@ -293,4 +293,8 @@ public class FileUtil {
         return InputStreamUtil.toString(fileInputStream,charset);
     }
 
+
+    public static File createNewFile(String fileName, String content){
+        return createFile(fileName, new ByteArrayInputStream(content.getBytes()));
+    }
 }
