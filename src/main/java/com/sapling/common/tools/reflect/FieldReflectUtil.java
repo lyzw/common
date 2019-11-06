@@ -1,7 +1,6 @@
 package com.sapling.common.tools.reflect;
 
 import com.sapling.common.tools.common.StringUtil;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.lang.reflect.Field;
 
