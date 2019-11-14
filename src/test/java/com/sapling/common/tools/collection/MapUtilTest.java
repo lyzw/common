@@ -1,13 +1,10 @@
 package com.sapling.common.tools.collection;
 
-import com.sapling.common.api.base.BaseRequest;
-import org.junit.Assert;
+import com.sapling.common.base.api.request.BaseRequest;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
  * @author weizhou

@@ -34,11 +34,13 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile group: 'redis.clients', name: 'jedis', version: version_jedis
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: version_httpclient
+
 
 }
 

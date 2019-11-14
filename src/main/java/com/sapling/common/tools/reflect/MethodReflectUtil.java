@@ -40,21 +40,71 @@ public class MethodReflectUtil {
      * @throws NoSuchMethodException Thrown when a particular method cannot be found.
      */
     public static Method getMethod(Class clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
-        return clazz.getMethod(methodName, parameterTypes);
+        Method method = null;
+        try {
+            method = getDeclaredMethod(clazz, methodName, parameterTypes);
+        } catch (NoSuchMethodException e) {
+
+        }
+        if (method == null) {
+            Class superClass = clazz.getSuperclass();
+            if (superClass != null && !superClass.equals(Object.class)) {
+                try {
+                    method = getMethod(superClass, methodName, parameterTypes);
+                } catch (NoSuchMethodException e) {
+                    // do nothing
+                }
+            }
+            if (method == null) {
+                Class[] superInterfaces = clazz.getInterfaces();
+                for (Class interfaceClazz : superInterfaces) {
+                    try {
+                        method = getMethod(interfaceClazz, methodName, parameterTypes);
+                    } catch (NoSuchMethodException e) {
+                        // do nothing
+                    }
+                    if (method != null) {
+                        break;
+                    }
+                }
+            }
+        }
+        if (method == null) {
+            throw new NoSuchMethodException();
+        }
+        return method;
     }
 
     /**
-     * get the method without parameter
+     * fetch the declared method with parameter types
      *
-     * @param clazz      class which method belongs to
-     * @param methodName method name
+     * @param clazz          class which the method belongs to
+     * @param methodName     method name
+     * @param parameterTypes parameter type of the method
      * @return the {@code Method} object that matches the specified
      * {@code methodName} and {@code parameterTypes}
      * @throws NoSuchMethodException Thrown when a particular method cannot be found.
      */
-    public static Method getMethod(Class clazz, String methodName) throws NoSuchMethodException {
-        return getMethod(clazz, methodName, (Class<?>) null);
+    public static Method getDeclaredMethod(Class clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
+        if (parameterTypes == null) {
+            return clazz.getDeclaredMethod(methodName);
+        } else {
+            return clazz.getDeclaredMethod(methodName, parameterTypes);
+        }
     }
+//
+//    /**
+//     * get the method without parameter
+//     *
+//     * @param clazz      class which method belongs to
+//     * @param methodName method name
+//     * @return the {@code Method} object that matches the specified
+//     * {@code methodName} and {@code parameterTypes}
+//     * @throws NoSuchMethodException Thrown when a particular method cannot be found.
+//     */
+//    public static Method getMethod(Class clazz, String methodName) throws NoSuchMethodException {
+//        return getMethod(clazz, methodName);
+//    }
 
     /**
      * get static method with method name and  parameter types

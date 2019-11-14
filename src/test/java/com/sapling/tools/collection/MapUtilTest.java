@@ -1,6 +1,6 @@
 package com.sapling.tools.collection;
 
-import com.sapling.common.api.base.BaseRequest;
+import com.sapling.common.base.api.request.BaseRequest;
 import com.sapling.common.tools.collection.MapUtil;
 import org.junit.Test;
 
