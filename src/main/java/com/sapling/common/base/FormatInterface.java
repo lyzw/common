@@ -2,10 +2,10 @@ package com.sapling.common.base;
 
 import com.sapling.common.tools.reflect.FieldReflectUtil;
 import com.sapling.common.tools.reflect.MethodReflectUtil;
-import com.sapling.common.tools.reflect.ReflectUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,6 +42,8 @@ public interface FormatInterface {
                             .append(FieldFormatHelper.DOUBLE_QUOTATION_MARK)
                             .append(value)
                             .append(FieldFormatHelper.DOUBLE_QUOTATION_MARK);
+                } else if (Map.class.isAssignableFrom(field.getType())){
+
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

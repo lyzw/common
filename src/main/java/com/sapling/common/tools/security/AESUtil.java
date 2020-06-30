@@ -1,11 +1,9 @@
 package com.sapling.common.tools.security;
 
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
+import com.sapling.common.tools.common.ByteUtil;
+
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -36,11 +34,12 @@ public class AESUtil {
 
     /**
      * 对给定的数据进行AES加密处理，机密类型支持AES/ECB/PKCS5Padding与AES/CBC/PKCS5Padding两种
+     *
      * @param encodeType 加密类型，暂时支持{@link AESUtil#ECB_CIPHER_ALGORITHM}与{@link AESUtil#CBC_CIPHER_ALGORITHM}两种方式
-     * @param content   加密内容
-     * @param key       加密key
-     * @param charsets  编码集
-     * @return  加密后的字节码数组
+     * @param content    加密内容
+     * @param key        加密key
+     * @param charsets   编码集
+     * @return 加密后的字节码数组
      * @throws NoSuchPaddingException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -57,11 +56,12 @@ public class AESUtil {
 
     /**
      * 对给定的数据进行AES加密处理，机密类型支持AES/ECB/PKCS5Padding与AES/CBC/PKCS5Padding两种
+     *
      * @param encodeType 加密类型，暂时支持{@link AESUtil#ECB_CIPHER_ALGORITHM}与{@link AESUtil#CBC_CIPHER_ALGORITHM}两种方式
-     * @param content   加密内容
-     * @param key       加密key
-     * @param charsets  编码集
-     * @return  加密后的字节码数组
+     * @param content    加密内容
+     * @param key        加密key
+     * @param charsets   编码集
+     * @return 加密后的字节码数组
      * @throws NoSuchPaddingException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -78,11 +78,12 @@ public class AESUtil {
 
     /**
      * 对给定的数据进行AES解密处理，解密类型支持AES/ECB/PKCS5Padding与AES/CBC/PKCS5Padding两种
+     *
      * @param decodeType 解密密类型，暂时支持{@link AESUtil#ECB_CIPHER_ALGORITHM}与{@link AESUtil#CBC_CIPHER_ALGORITHM}两种方式
-     * @param content   加密内容
-     * @param key       加密key
-     * @param charsets  编码集
-     * @return  解密后的字节码数组
+     * @param content    加密内容
+     * @param key        加密key
+     * @param charsets   编码集
+     * @return 解密后的字节码数组
      * @throws NoSuchPaddingException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -99,11 +100,12 @@ public class AESUtil {
 
     /**
      * 对给定的数据进行AES解密处理，解密类型支持AES/ECB/PKCS5Padding与AES/CBC/PKCS5Padding两种
+     *
      * @param decodeType 解密密类型，暂时支持{@link AESUtil#ECB_CIPHER_ALGORITHM}与{@link AESUtil#CBC_CIPHER_ALGORITHM}两种方式
-     * @param content   加密内容
-     * @param key       加密key
-     * @param charsets  编码集
-     * @return  解密后的字节码数组
+     * @param content    加密内容
+     * @param key        加密key
+     * @param charsets   编码集
+     * @return 解密后的字节码数组
      * @throws NoSuchPaddingException
      * @throws NoSuchAlgorithmException
      * @throws UnsupportedEncodingException
@@ -149,13 +151,13 @@ public class AESUtil {
      * @param content  待加密内容
      * @param key      加密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesEcbEncode(String content, byte[] key, String charsets)
             throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
@@ -174,13 +176,13 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesEcbDecode(String content, String key, String charsets)
             throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
@@ -193,19 +195,18 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesEcbDecode(byte[] content, String key, String charsets)
             throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         return decode(ECB_CIPHER_ALGORITHM, content, key, charsets);
     }
-
 
 
     /**
@@ -214,13 +215,13 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesEcbDecode(String content, byte[] key, String charsets)
             throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
@@ -233,13 +234,13 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesEcbDecode(byte[] content, byte[] key, String charsets)
             throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
@@ -252,13 +253,13 @@ public class AESUtil {
      * @param content  待加密的内容
      * @param key      待加密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesCbcEncode(String content, String key, String charsets)
             throws NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
@@ -271,13 +272,13 @@ public class AESUtil {
      * @param content  待加密的内容
      * @param key      待加密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesCbcEncode(byte[] content, String key, String charsets)
             throws NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
@@ -290,13 +291,13 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesCbcDecode(String content, String key, String charsets)
             throws NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
@@ -309,13 +310,13 @@ public class AESUtil {
      * @param content  待解密的内容
      * @param key      待解密的key
      * @param charsets 字符集
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return 加密后的字节数组
+     * @throws NoSuchPaddingException       see {@link NoSuchPaddingException}
+     * @throws NoSuchAlgorithmException     see {@link NoSuchAlgorithmException}
+     * @throws UnsupportedEncodingException see {@link UnsupportedEncodingException}
+     * @throws InvalidKeyException          see {@link InvalidKeyException}
+     * @throws BadPaddingException          see {@link BadPaddingException}
+     * @throws IllegalBlockSizeException    see {@link IllegalBlockSizeException}
      */
     public static byte[] aesCbcDecode(byte[] content, String key, String charsets)
             throws NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidKeyException {
@@ -332,4 +333,16 @@ public class AESUtil {
         return restoreSecretKey(secretBytes);
     }
 
+
+    public static void main(String[] args) throws UnsupportedEncodingException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
+        String content = "这是content";
+        String password = "0123456789012345";
+        String chatset = "UTF-8";
+        byte[] bytes = encode(ECB_CIPHER_ALGORITHM,content.getBytes(chatset),password,chatset);
+        System.out.println(ByteUtil.bytesToHex(bytes));
+        String encode = ByteUtil.bytesToHex(bytes);
+        byte[] result = decode(ECB_CIPHER_ALGORITHM,ByteUtil.hexToBytes(encode),password,chatset);
+        System.out.println(new String(result));
+
+    }
 }

@@ -1,0 +1,159 @@
+<configuration>
+  <property name="appName" value="itoaService"/>
+  <property name="pattern"
+            value="[%date{yyyy-MM-dd HH:mm:ss.SSS}] [%-10thread] %-5level %logger{35} - %msg %n"/>
+  <property name="includeCallerData" value="true"/>
+  <property name="logPath" value="${user.dir}/logs/" />
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${pattern}</pattern>
+    </encoder>
+    　　　
+  </appender>
+
+
+  <appender name="ERROR_FILE"
+            class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <rollingPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>${logPath}/${appName}_ERROR.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <!-- keep 30 days' worth of history capped at 3GB total size -->
+      <maxFileSize>100MB</maxFileSize>
+      <maxHistory>60</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>${pattern}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="INFO_FILE"
+            class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <rollingPolicy
+            class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>${logPath}/${appName}_INFO.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+      <!-- keep 30 days' worth of history capped at 3GB total size -->
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>${pattern}</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="socket" class="ch.qos.logback.classic.net.SocketAppender">
+    <encoder>
+      <pattern>${pattern}</pattern>
+    </encoder>
+    <includeCallerData>${includeCallerData}</includeCallerData>
+    <!--The host name of the server -->
+    <remoteHost>localhost</remoteHost>
+    <!--default port is 4560 -->
+    <port>6000</port>
+    <!--default is 30 seconds-->
+    <reconnectionDelay>30 seconds</reconnectionDelay>
+    <!--default queue size is 128 -->
+    <queueSize>128</queueSize>
+    <!--timeout for how long to wait when inserting an event into the BlockingQueue-->
+    <!--default value is 100 milliseconds -->
+    <eventDelayLimit>100 milliseconds</eventDelayLimit>
+  </appender>
+  <appender name="server"
+            class="ch.qos.logback.classic.net.server.ServerSocketAppender">
+    <encoder>
+      <pattern>${pattern}</pattern>
+    </encoder>
+    <port>7000</port>
+    <includeCallerData>${includeCallerData}</includeCallerData>
+  </appender>
+
+  <appender name="stash"
+            class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>127.0.0.1:4560</destination>
+    <destination>192.168.32.24:4560</destination>
+    <destination>192.168.32.25:4560</destination>
+    <connectionStrategy>
+      <preferPrimary>
+        <secondaryConnectionTTL>5 minutes</secondaryConnectionTTL>
+      </preferPrimary>
+    </connectionStrategy>
+
+    <!--当全部链接失败的情况下，延迟指定的时候再次链接，默认为30s-->
+    <reconnectionDelay>20 second</reconnectionDelay>
+
+    <!--socket写缓存大小，默认为8192，可以设置为0来设置输出不使用缓存-->
+    <writeBufferSize>16384</writeBufferSize>
+
+    <!--ssl相关-->
+    <!--
+    <ssl>
+      <trustStore>
+        <location>classpath:server.truststore</location>
+        <password>${server.truststore.password}</password>
+      </trustStore>
+    </ssl>
+    -->
+
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <!--自定义域，以json的方式填充自定义的字段，可以使用全局的参数，最好填充应用相关的信息，
+      如应用名称，版本信息等 -->
+      <customFields>
+        {
+        "appName":"${appName}",
+        "version":"2.0.0.0"
+        }
+      </customFields>
+      <timestampPattern>yyyy-MM-dd'T'HH:mm:ss.SSS</timestampPattern>
+      <timeZone>Asia/Shanghai</timeZone>
+      <!---->
+      <shortenedLoggerNameLength>36</shortenedLoggerNameLength>
+
+      <!--重命名标准字段-->
+      <!--
+      <fieldNames>
+        <timestamp>time</timestamp>
+        <message>msg</message>
+      </fieldNames>
+      -->
+    </encoder>
+    <keepAliveDuration>5 minutes</keepAliveDuration>
+    <!---->
+    <includeCallerData>${includeCallerData}</includeCallerData>
+  </appender>
+
+  　　　
+  <appender name="cat"
+            class="com.sapling.logback.integration.appender.CatLogbackAppender">
+    <types>
+      {
+        "key1":"value1",
+        "key2":"value2",
+        "key3":"value3",
+        "key4":"value4",
+        "key5":"value5"
+      }
+    </types>
+  </appender>
+  <root level="DEBUG">
+<!--    <appender-ref ref="stash"/>-->
+    <!--<appender-ref ref="cat"/>--><!--
+    <appender-ref ref="socket"/>-->
+    <appender-ref ref="STDOUT"/>
+<!--    <appender-ref ref="ERROR_FILE"/>-->
+<!--    <appender-ref ref="INFO_FILE"/>-->
+    　　　
+  </root>
+</configuration>

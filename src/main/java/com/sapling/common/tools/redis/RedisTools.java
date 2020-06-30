@@ -21,15 +21,6 @@ public class RedisTools {
         if (keys.length == 1) {
             return keys[0];
         }
-        StringBuilder sb = new StringBuilder();
-        int index = 1;
-        for (String s : keys) {
-            sb.append(s);
-            if (index != keys.length) {
-                sb.append(keySeperator);
-            }
-            index++;
-        }
-        return sb.toString();
+        return String.join(keySeperator,keys);
     }
 }

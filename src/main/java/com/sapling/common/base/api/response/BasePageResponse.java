@@ -1,6 +1,7 @@
 package com.sapling.common.base.api.response;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @since v1.0
  */
 @Data
+@EqualsAndHashCode
 public class BasePageResponse<T> extends BaseResponse<List<T>> {
 
     private PageInfo page;

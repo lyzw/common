@@ -22,7 +22,7 @@ public class NetworkInfoUtil {
 
     private static Logger logger = LoggerFactory.getLogger(NetworkInfoUtil.class);
 
-    public static String getHostIp() throws UnknownHostException {
+    public static String getHostIp()  {
         String ip = "";
         try {
             Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -32,8 +32,9 @@ public class NetworkInfoUtil {
                 while (addresses.hasMoreElements()){
                     InetAddress address = addresses.nextElement();
                     logger.debug(address.getHostAddress());
-                    if (address != null && !address.isAnyLocalAddress()
-                            && !address.isLoopbackAddress() && address instanceof Inet4Address){
+                    if (!address.isAnyLocalAddress()
+                            && !address.isLoopbackAddress()
+                            && address instanceof Inet4Address){
                         ip = address.getHostAddress();
                     }
                 }

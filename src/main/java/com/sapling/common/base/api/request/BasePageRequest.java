@@ -2,6 +2,7 @@ package com.sapling.common.base.api.request;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author zhouwei
@@ -10,6 +11,7 @@ import lombok.Data;
  * @since v1.0
  */
 @Data
+@EqualsAndHashCode
 public class BasePageRequest extends BaseRequest {
 
     /**

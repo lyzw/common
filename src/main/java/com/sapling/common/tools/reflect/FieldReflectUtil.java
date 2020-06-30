@@ -201,6 +201,6 @@ public class FieldReflectUtil {
     public static void main(String[] args) {
         BaseResponse baseResponse = new BaseResponse();
         setNullRecursionDeclaredFieldsToDefault(baseResponse, "123");
-        System.out.println(baseResponse.toPrintString());
+//        System.out.println(baseResponse.toPrintString());
     }
 }
